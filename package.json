@@ -12,6 +12,7 @@
   "license": "ISC",
   "devDependencies": {
     "css-loader": "^5.0.1",
+    "html-webpack-inline-svg-plugin": "^2.3.0",
     "sass": "^1.30.0",
     "sass-loader": "^10.1.0",
     "style-loader": "^2.0.0",
