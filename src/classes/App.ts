@@ -8,6 +8,8 @@ export default class App {
         this.canvasContainer = document.getElementById("canvas-container");
         this.controlPanel = document.getElementById("control-panel");
         this.main = document.getElementById('main');
+
+        this.toggler.addEventListener('click', this.toggle.bind(this))
     }
 
     toggle() {
@@ -16,9 +18,5 @@ export default class App {
         } else {
             this.main.classList.add('closed')
         }
-    }
-
-    instantiate() {
-        this.toggler.addEventListener('click', this.toggle.bind(this))
     }
 }
