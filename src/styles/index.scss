@@ -1,0 +1,115 @@
+@import "./variables";
+
+body {
+  background-color: $dark;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  & > * {
+    height: 100vh;
+    width: 100%;
+  }
+
+  .left {
+    border-top-right-radius: 150px;
+    border-bottom-right-radius: 150px;
+    background-color: $charcoal;
+    display: flex;
+    position: relative;
+    .main-section {
+      width: 100%;
+      padding: 50px 80px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .intro {
+        height: 25%;
+        background-color: $dark-pink;
+        border-radius: $curved-border;
+        box-shadow: 7px 7px 18px 15px rgba(0, 0, 0, 0.1);
+      }
+      .canvas-container {
+        height: 50%;
+        border-radius: $curved-border;
+        background-color: $dark;
+        box-shadow: 2px 18px 18px 3px rgba(0, 0, 0, 0.1);
+      }
+      .math {
+        height: 15%;
+        box-shadow: 2px 18px 18px 3px rgba(0, 0, 0, 0.1);
+        border-radius: $curved-border;
+        background-color: $purple;
+      }
+      .toggler-container {
+        $height: 40px;
+        $width: 40px;
+        position: absolute;
+        right: 0;
+        top: 43%;
+        .top-curve {
+          width: $width;
+          height: $height;
+          background-color: $dark;
+          &::before {
+            width: $width;
+            height: $height;
+            display: block;
+            content: "";
+            position: absolute;
+            background-color: $charcoal;
+            border-bottom-right-radius: 20px;
+          }
+        }
+        .bottom-curve {
+          width: $width;
+          height: $height;
+          background-color: $dark;
+          &::before {
+            width: $width;
+            height: $height;
+            display: block;
+            content: "";
+            position: absolute;
+            background-color: $charcoal;
+            border-top-right-radius: 20px;
+          }
+        }
+        .toggler {
+          width: $width;
+          height: $height;
+          border-top-left-radius: 40px;
+          border-bottom-left-radius: 40px;
+          background-color: $dark;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  .right {
+    width: 25vw;
+  }
+
+  .nav {
+    width: 120px;
+    background-color: $dark;
+    border-radius: $curved-border;
+    height: 97vh;
+    margin: auto 0 auto 20px;
+    -webkit-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+    box-shadow: 7px 7px 10px 0px rgba(0, 0, 0, 0.1);
+  }
+}
