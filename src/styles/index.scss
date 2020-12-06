@@ -19,6 +19,7 @@ main {
       width: 0;
     }
     .left {
+      transition: 0.3s border-radius ease-out;
       border-radius: 0;
     }
   }
@@ -33,7 +34,6 @@ main {
     background-color: $charcoal;
     display: flex;
     position: relative;
-    transition: 0.3s border-radius ease-out;
     .main-section {
       width: 100%;
       padding: 50px 80px;
