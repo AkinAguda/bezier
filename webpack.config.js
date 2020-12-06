@@ -1,7 +1,5 @@
 const path = require('path');
 
-const HtmlWebpackInlineSVGPlugin = require('html-webpack-inline-svg-plugin');
-
 module.exports = {
     entry: './src/index.ts',
     module: {
@@ -35,9 +33,4 @@ module.exports = {
         compress: true,
         port: 9000
     },
-    plugins: [
-        new HtmlWebpackPlugin(),
-        new HtmlWebpackInlineSVGPlugin()
-    ]
-
 };
