@@ -1,4 +1,9 @@
+import App from './classes/App';
+
 import './styles/index.scss';
+
+const app = new App();
+app.instantiate();
 
 // import Graph from './classes/Graph';
 // import Bezier from './classes/Bezier';
