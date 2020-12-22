@@ -8,7 +8,7 @@ import Graph from './classes/Graph';
 import Bezier from './classes/Bezier';
 import Point from './classes/Point';
 
-// const graph = new Graph({id: "myCanvas", height: 768, width: 1366});
+// const graph = new Graph({id: "myCanvas", height: 758, width: 135});
 
 // const draw = (p1: Point, p2: Point, p3: Point, p4: Point) => {
     const graph = new Graph({ id: "myCanvas" });
@@ -21,16 +21,16 @@ import Point from './classes/Point';
     // bezier.buildBezier([p1, p2, p3, p4]);
 
     // bezier.showControlPoints();
-    const pnt = graph.point(0, 0);
-    const pnt2 = graph.point(2, 4);
-    const pnt3 = graph.point(6, 6);
-    const pnt4 = graph.point(4, 2);
+    const pnt1 = graph.point(1, 4);
+    const pnt2 = graph.point(5, 6);
+    const pnt3 = graph.point(5, 1);
+    // const pnt4 = graph.point(4, 2);
     const bezier = new Bezier(graph);
-    bezier.buildBezier([pnt, pnt2, pnt3, pnt4]);
-    pnt.drawCircle(graph.ctx);
+    bezier.buildBezier([pnt1, pnt2, pnt3]);
+    pnt1.drawCircle(graph.ctx);
     pnt2.drawCircle(graph.ctx)
     pnt3.drawCircle(graph.ctx)
-    pnt4.drawCircle(graph.ctx)
+    // pnt4.drawCircle(graph.ctx)
 // }
 
     // draw(p1, p2, p3, p4)

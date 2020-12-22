@@ -24,7 +24,7 @@ export default class Graph {
     //     this._ctx.stroke();
     //     console.log("draw")
     // }
-    lineRaw(p1: Point, p2: Point) {
+    line(p1: Point, p2: Point) {
         this._ctx.moveTo(p1.rawX, p1.rawY);
         this._ctx.lineTo(p2.rawX, p2.rawY);
         this._ctx.strokeStyle = '#8EB0F5';
