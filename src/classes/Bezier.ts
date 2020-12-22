@@ -25,8 +25,6 @@ export default class Bezier {
     }
 
     buildBezier(controlPoints: Array<Point>) {
-        const x: Array<number> = [];
-        const y: Array<number> = [];
         const pts: Array<Point> = [];
         for (let i = 0; i <= 1; i = Math.round((i + 0.05 + Number.EPSILON) * 100) / 100) {
             pts.push(this.graph.point(this.summation(controlPoints.length - 1, 0, i, controlPoints, PointType.x ), this.summation(controlPoints.length - 1, 0, i, controlPoints, PointType.y )))
