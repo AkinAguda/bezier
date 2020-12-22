@@ -4,18 +4,36 @@ import './styles/index.scss';
 
 const app = new App();
 
-// import Graph from './classes/Graph';
-// import Bezier from './classes/Bezier';
-// import Point from './classes/Point';
+import Graph from './classes/Graph';
+import Bezier from './classes/Bezier';
+import Point from './classes/Point';
 
 // const graph = new Graph({id: "myCanvas", height: 768, width: 1366});
 
 // const draw = (p1: Point, p2: Point, p3: Point, p4: Point) => {
-//     const bezier = new Bezier(graph);
-//     bezier.buildBezier([p1, p2, p3, p4]);
+    const graph = new Graph({ id: "myCanvas" });
+    // const bezier = new Bezier(graph);
+    // bezier.buildBezier([graph.point(2, 1)]);
+    // // , new Point(450, 200), new Point(500, 250)]
+    // bezier.showControlPoints();
+    // console.log(bezier.controlPoints, graph.arm)
+    // bezier.indicate();
+    // bezier.buildBezier([p1, p2, p3, p4]);
 
-//     bezier.showControlPoints();
+    // bezier.showControlPoints();
+    const pnt = graph.point(0, 0);
+    const pnt2 = graph.point(2, 4);
+    const pnt3 = graph.point(6, 6);
+    const pnt4 = graph.point(4, 2);
+    const bezier = new Bezier(graph);
+    bezier.buildBezier([pnt, pnt2, pnt3, pnt4]);
+    pnt.drawCircle(graph.ctx);
+    pnt2.drawCircle(graph.ctx)
+    pnt3.drawCircle(graph.ctx)
+    pnt4.drawCircle(graph.ctx)
 // }
+
+    // draw(p1, p2, p3, p4)
 
 // const a = document.getElementById("a") as HTMLInputElement;
 // const b = document.getElementById("b") as HTMLInputElement;

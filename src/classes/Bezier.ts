@@ -42,7 +42,7 @@ export default class Bezier {
 
         x.forEach((_, i) => {
             console.log(x[i], y[i])
-            this.graph.pointRaw(x[i], y[i])
+            this.graph.point(x[i]/50, y[i]/50)
         })
 
         for (let i = 0; i < this.graph.arm.length - 1; i++) {

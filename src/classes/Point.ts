@@ -10,6 +10,7 @@ export default class Point {
     drawCircle (ctx: CanvasRenderingContext2D) {
         ctx.beginPath();
         ctx.arc(this.rawX, this.rawY, 5, 0, 2 * Math.PI);
+        ctx.strokeStyle = '#8EB0F5';
         ctx.stroke();
     }
     get x () {
