@@ -16,12 +16,27 @@ export default class Graph {
         this._width = this._canvas.offsetWidth;
         this._canvas.height = this._height;
         this._canvas.width = this._width;
+        for (let i = 0; i < this._canvas.width / this._scale; i++) {
+            this._ctx.font = "12px Comic Sans MS";
+            this.ctx.fillStyle = '#abadb3';
+            const point = this.point(i, 0);
+            this.ctx.fillText(point.x.toString(), point.rawX, point.rawY);
+        }
+        for (let i = 1; i < this._canvas.height / this._scale; i++) {
+            const point = this.point(0, i);
+            this.ctx.fillText(point.y.toString(), point.rawX, point.rawY);
+        }
     }
 
     line(p1: Point, p2: Point) {
         this._ctx.moveTo(p1.rawX, p1.rawY);
         this._ctx.lineTo(p2.rawX, p2.rawY);
-        this._ctx.strokeStyle = '#8EB0F5';
+        this._ctx.strokeStyle = 'white';
+        this._ctx.shadowColor='blue';
+        this._ctx.shadowOffsetX = 0;
+        this._ctx.shadowOffsetY = 0;
+        this._ctx.shadowBlur = 3;
+        this._ctx.lineWidth = 2;
         this._ctx.stroke();
     }
     point(x: number, y: number): Point {
@@ -35,6 +50,13 @@ export default class Graph {
         const newPoint = new Point(x, y, x, y);
         this.arm.push(newPoint);
         return newPoint
+    }
+    drawLine(points: Array<Point>, iter = -1) {
+        requestAnimationFrame(() => this.drawLine(points, iter))
+        if ((iter >= 0) && (iter < points.length - 1)) {
+            this.line(points[iter], points[iter + 1])
+        }
+        iter ++
     }
     get ctx () {
         return this._ctx
