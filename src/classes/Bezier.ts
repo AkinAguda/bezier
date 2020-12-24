@@ -1,7 +1,7 @@
 import Graph from './Graph';
 import Point from './Point';
 
-import { combination, returnAxi } from '../helpers';
+import { combination, returnAxi, distBetweenPoints } from '../helpers';
 
 export enum PointType {
     x,
@@ -24,15 +24,43 @@ export default class Bezier {
         }
     }
 
-    buildBezier(controlPoints: Array<Point>) {
+    getBezierPoints(points: Array<Point>): Array<Point> {
         const pts: Array<Point> = [];
+        this.controlPoints = [...points]
         for (let i = 0; i <= 1; i = Math.round((i + 0.010 + Number.EPSILON) * 100) / 100) {
-            pts.push(this.graph.point(this.summation(controlPoints.length - 1, 0, i, controlPoints, PointType.x ), this.summation(controlPoints.length - 1, 0, i, controlPoints, PointType.y )))
+            pts.push(this.graph.point(this.summation(points.length - 1, 0, i, points, PointType.x ), this.summation(points.length - 1, 0, i, points, PointType.y )))
         }
-        // for (let i = 0; i < pts.length - 1; i++) {
-        //     this.graph.line(pts[i], pts[i + 1])
-        // }
-        this.graph.drawLine(pts)
+        return pts
+    }
+
+    drawLine(points: Array<Point>, controlPoints: Array<Point>, iter = -1) {
+        requestAnimationFrame(() => this.drawLine(points, controlPoints, iter))
+        if ((iter >= 0) && (iter < points.length - 1)) {
+            this.graph.line(points[iter], points[iter + 1])
+        } else {
+            this.controlPoints.forEach(controlPoint => {
+                if (this.graph.drag.isDragging && distBetweenPoints(controlPoint, this.graph.drag.point) <= 5) {
+                    this.graph.ctx.clearRect(10, this.graph.height - 10, this.graph.width, -this.graph.height);
+                    controlPoint.setX(this.graph.drag.point.x);
+                    controlPoint.setRawX(this.graph.drag.point.rawX);
+                    controlPoint.setY(this.graph.drag.point.y);
+                    controlPoint.setRawY(this.graph.drag.point.rawY);
+                    const computedPoints = this.getBezierPoints(controlPoints);
+                    controlPoints.forEach(cp => {
+                        cp.drawCircle(this.graph.ctx)
+                    })
+                    for (let i = 0; i < computedPoints.length - 1; i++) {
+                        this.graph.line(computedPoints[i], computedPoints[i + 1])
+                    }
+                }
+            })
+        }
+        iter ++
+    }
+
+    buildBezier(controlPoints: Array<Point>) {
+        const points = this.getBezierPoints(controlPoints)
+        this.drawLine(points, controlPoints)
     }
 
 }

@@ -18,3 +18,10 @@ export const returnAxi = (pType: PointType, point: Point) => {
         return point.y
     }
 }
+
+export const distBetweenPoints = (point1: Point, point2: Point): number => {
+    const opposite = Math.abs(point1.rawY - point2.rawY);
+    const adjacent = Math.abs(point1.rawX - point2.rawX);
+    const hypotenuse = Math.sqrt(Math.pow(opposite, 2) + Math.pow(adjacent, 2));
+    return hypotenuse
+}

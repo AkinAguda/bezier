@@ -10,7 +10,9 @@ export default class Point {
     drawCircle (ctx: CanvasRenderingContext2D) {
         ctx.beginPath();
         ctx.arc(this.rawX, this.rawY, 5, 0, 2 * Math.PI);
-        ctx.strokeStyle = '#8EB0F5';
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+        ctx.strokeStyle = 'white';
         ctx.stroke();
     }
     get x () {
@@ -24,5 +26,17 @@ export default class Point {
     }
     get rawY () {
         return this._rawYValue
+    }
+    setX(value: number) {
+        this._xValue = value
+    }
+    setY(value: number) {
+        this._yValue = value
+    }
+    setRawX(value: number) {
+        this._rawXValue = value
+    }
+    setRawY(value: number) {
+        this._rawYValue = value
     }
 }
