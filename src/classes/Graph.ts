@@ -4,7 +4,7 @@ import Point from './Point';
 type Drag = {
     isDragging: boolean,
     mouseDown: boolean,
-    point: Point
+    point: Point | null
 }
 export default class Graph {
     private _height: number;
@@ -12,7 +12,7 @@ export default class Graph {
     private _canvas: HTMLCanvasElement;
     private _ctx: CanvasRenderingContext2D;
     private _scale: number = 50;
-    drag: Drag = { isDragging: false, mouseDown: false, point: this.pointRaw(0, 0) };
+    drag: Drag = { isDragging: false, mouseDown: false, point: null };
     points: Array<Point> = [];
     constructor(proprties: GraphInterfaces) {
         this._canvas = document.getElementById(proprties.id) as HTMLCanvasElement;
@@ -37,7 +37,8 @@ export default class Graph {
             }
             if (this.drag.isDragging) {
                 const rect = this._canvas.getBoundingClientRect();
-                this.drag.point = this.pointRaw(event.clientX - rect.left, event.clientY - rect.top)
+                this.drag.point = this.pointRaw(event.clientX - rect.left, event.clientY - rect.top);
+                // console.log(this.pointRaw(200, 255))
             }
         })
         for (let i = 0; i < this._canvas.width / this._scale; i++) {
@@ -78,7 +79,7 @@ export default class Graph {
         return newPoint
     }
     pointRaw(x: number, y: number): Point {
-        const newPoint = new Point(x / this._scale, ((y + this._height) / this._scale), x, y);
+        const newPoint = this.point(x / this._scale, (this.height - y) / this._scale, true);
         return newPoint
     }
     get ctx () {

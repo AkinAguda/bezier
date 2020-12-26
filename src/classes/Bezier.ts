@@ -7,10 +7,10 @@ export enum PointType {
     x,
     y
 }
-
 export default class Bezier {
     constructor(public graph: Graph) {}
     controlPoints: Array<Point>;
+    selectedControlPointIndex: number | null = null;
 
     calculateValue(n: number, i: number, t: number, axi: number) : number {
        return combination(n, i) * (Math.pow((1 - t), n - i)) * Math.pow(t, i) * axi 
@@ -27,24 +27,33 @@ export default class Bezier {
     getBezierPoints(points: Array<Point>): Array<Point> {
         const pts: Array<Point> = [];
         this.controlPoints = [...points]
-        for (let i = 0; i <= 1; i = Math.round((i + 0.010 + Number.EPSILON) * 100) / 100) {
+        for (let i = 0; i <= 1; i = Math.round((i + 0.05 + Number.EPSILON) * 100) / 100) {
             pts.push(this.graph.point(this.summation(points.length - 1, 0, i, points, PointType.x ), this.summation(points.length - 1, 0, i, points, PointType.y )))
         }
         return pts
     }
 
     drawLine(points: Array<Point>, controlPoints: Array<Point>, iter = -1) {
-        requestAnimationFrame(() => this.drawLine(points, controlPoints, iter))
+        requestAnimationFrame(() => this.drawLine(points, controlPoints, iter));
+        if (!this.graph.drag.isDragging && (this.selectedControlPointIndex !== null)) {
+            this.selectedControlPointIndex = null
+        }
         if ((iter >= 0) && (iter < points.length - 1)) {
             this.graph.line(points[iter], points[iter + 1])
         } else {
-            this.controlPoints.forEach(controlPoint => {
-                if (this.graph.drag.isDragging && distBetweenPoints(controlPoint, this.graph.drag.point) <= 5) {
+            this.controlPoints.forEach((controlPoint, index) => {
+                if (this.graph.drag.isDragging && (this.selectedControlPointIndex === null)) {
+                    if (distBetweenPoints(controlPoint, this.graph.drag.point) <= 5) {
+                        this.selectedControlPointIndex = index
+                    }
+                }
+                if (this.selectedControlPointIndex !== null) {
+                    // this.selectedPoint = controlPoint;
                     this.graph.ctx.clearRect(10, this.graph.height - 10, this.graph.width, -this.graph.height);
-                    controlPoint.setX(this.graph.drag.point.x);
-                    controlPoint.setRawX(this.graph.drag.point.rawX);
-                    controlPoint.setY(this.graph.drag.point.y);
-                    controlPoint.setRawY(this.graph.drag.point.rawY);
+                    controlPoints[this.selectedControlPointIndex].setX(this.graph.drag.point.x);
+                    controlPoints[this.selectedControlPointIndex].setRawX(this.graph.drag.point.rawX);
+                    controlPoints[this.selectedControlPointIndex].setY(this.graph.drag.point.y);
+                    controlPoints[this.selectedControlPointIndex].setRawY(this.graph.drag.point.rawY);
                     const computedPoints = this.getBezierPoints(controlPoints);
                     controlPoints.forEach(cp => {
                         cp.drawCircle(this.graph.ctx)
