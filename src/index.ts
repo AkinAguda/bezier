@@ -9,10 +9,9 @@ import Bezier from './classes/Bezier';
 
 const graph = new Graph({ id: "myCanvas" });
 const pnt1 = graph.point(4, 2);
-const pnt2 = graph.point(7, 6);
+const pnt2 = graph.point(7, 4);
 const pnt3 = graph.point(9, 1);
-const pnt4 = graph.point(13, 6);
-// const pnt5 = graph.point(16, 3);
+const pnt4 = graph.point(13, 3);
 
 const bezier = new Bezier(graph);
 bezier.buildBezier([pnt1, pnt2, pnt3, pnt4]);
