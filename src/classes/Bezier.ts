@@ -48,7 +48,6 @@ export default class Bezier {
                     }
                 }
                 if (this.selectedControlPointIndex !== null) {
-                    // this.selectedPoint = controlPoint;
                     this.graph.ctx.clearRect(10, this.graph.height - 10, this.graph.width, -this.graph.height);
                     controlPoints[this.selectedControlPointIndex].setX(this.graph.drag.point.x);
                     controlPoints[this.selectedControlPointIndex].setRawX(this.graph.drag.point.rawX);

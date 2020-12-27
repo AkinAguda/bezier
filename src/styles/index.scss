@@ -8,6 +8,9 @@ body,
 html {
   margin: 0;
   padding: 0;
+  max-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
 main {
@@ -17,6 +20,8 @@ main {
   &.closed {
     .right {
       width: 0;
+      overflow: hidden;
+      padding: 0;
     }
     .left {
       transition: 0.3s border-radius ease-out;
@@ -124,6 +129,117 @@ main {
     width: 25vw;
     transition: 0.3s;
     transition-timing-function: ease-out;
+    padding: 20px 20px 0 20px;
+    box-sizing: border-box;
+    .instruction {
+      height: 150px;
+      background-image: radial-gradient($blue, $purple);
+      border-radius: $curved-border - 20px;
+      margin: 50px 0 30px 0;
+    }
+    .coords-container {
+      overflow-y: auto;
+      max-height: 500px;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      & > * {
+        margin-bottom: 30px;
+      }
+      .coord-box {
+        height: 70px;
+        background-color: $charcoal;
+        border-radius: $curved-border - 20px;
+        position: relative;
+        display: flex;
+        justify-content: space-evenly;
+        .coord-section {
+          align-items: center;
+          justify-content: center;
+          margin-top: auto;
+          margin-bottom: auto;
+          display: flex;
+          padding: 0 10px;
+          box-sizing: border-box;
+          & > :nth-child(2) {
+            margin-left: 10px;
+          }
+          input {
+            height: 40px;
+            width: 100%;
+            display: block;
+            background-color: transparent;
+            font-size: 30px;
+            border: none;
+            background-color: $dark;
+            border-radius: 10px;
+            color: rgb(202, 200, 200);
+            text-align: center;
+          }
+        }
+        .add-red-container {
+          position: absolute;
+          bottom: -10px;
+          right: 10px;
+          display: flex;
+          & > * {
+            color: white;
+            border-radius: 100%;
+            height: $sign-dimension;
+            width: $sign-dimension;
+            text-align: center;
+            font-weight: 700 !important;
+            &:hover {
+              cursor: pointer;
+            }
+          }
+          & > .add-coord-box {
+            background-color: $purple;
+            position: relative;
+            $inner-sign-width: $sign-dimension - 8px;
+            $thickness: 3px;
+            &::before {
+              content: "";
+              display: block;
+              background-color: white;
+              top: 9px;
+              margin-left: ($sign-dimension - $inner-sign-width) / 2;
+              position: absolute;
+              height: $thickness;
+              width: $inner-sign-width;
+            }
+            &::after {
+              content: "";
+              display: block;
+              background-color: white;
+              width: $thickness;
+              height: $inner-sign-width;
+              margin-top: ($sign-dimension - $inner-sign-width) / 2;
+              margin-left: ($sign-dimension / 2) - ($thickness / 2);
+            }
+          }
+          & > .remove-coord-box {
+            margin-left: 5px;
+            background-color: $dark-pink;
+            position: relative;
+            $inner-sign-width: $sign-dimension - 8px;
+            $thickness: 3px;
+            &::before {
+              content: "";
+              display: block;
+              background-color: white;
+              top: 9px;
+              margin-left: ($sign-dimension - $inner-sign-width) / 2;
+              position: absolute;
+              height: $thickness;
+              width: $inner-sign-width;
+            }
+          }
+        }
+      }
+    }
   }
 
   .nav {
