@@ -22,6 +22,9 @@ main {
       width: 0;
       overflow: hidden;
       padding: 0;
+      & > * {
+        visibility: hidden;
+      }
     }
     .left {
       transition: 0.3s border-radius ease-out;
