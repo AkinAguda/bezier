@@ -1,5 +1,6 @@
 import { GraphInterfaces } from '../interfaces';
 import Point from './Point';
+import State from './State';
 
 type Drag = {
     isDragging: boolean,
@@ -41,6 +42,7 @@ export default class Graph {
                 // console.log(this.pointRaw(200, 255))
             }
         })
+        const s = new State([3])
         for (let i = 0; i < this._canvas.width / this._scale; i++) {
             this._ctx.font = "12px Comic Sans MS";
             this.ctx.fillStyle = '#abadb3';
