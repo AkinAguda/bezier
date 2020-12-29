@@ -82,6 +82,9 @@ export default class Graph {
         const newPoint = this.point(x / this._scale, (this.height - y) / this._scale, true);
         return newPoint
     }
+    clear() {
+        this.ctx.clearRect(10, this.height - 10, this.width, -this.width)
+    }
     get ctx () {
         return this._ctx
     }

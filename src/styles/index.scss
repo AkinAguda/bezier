@@ -188,6 +188,10 @@ main {
           right: 10px;
           display: flex;
           & > * {
+            display: block;
+            border: 0;
+            padding: 0;
+            font-size: 100%;
             color: white;
             border-radius: 100%;
             height: $sign-dimension;
@@ -219,7 +223,7 @@ main {
               background-color: white;
               width: $thickness;
               height: $inner-sign-width;
-              margin-top: ($sign-dimension - $inner-sign-width) / 2;
+              margin-top: ($sign-dimension - $inner-sign-width - 5px) / 2;
               margin-left: ($sign-dimension / 2) - ($thickness / 2);
             }
           }
