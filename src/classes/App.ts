@@ -9,7 +9,7 @@ export default class App {
     controlPanel: HTMLElement;
     main: HTMLElement;
     coordsContainer: HTMLElement;
-    points: State<Point[]> = new State([]);
+    points: State<Array<Point>> = new State([]);
     graph: Graph;
     constructor() {
         this.toggler = document.getElementById('toggler');
@@ -18,17 +18,21 @@ export default class App {
         this.main = document.getElementById('main');
         this.coordsContainer = document.getElementById('coords-container');
         this.graph = new Graph({ id: "myCanvas" });
-        this.points.updateState([this.graph.point(4, 2)]);
-        this.points.updateState([this.graph.point(7, 4)]);
-        this.points.updateState([this.graph.point(9, 1)]);
-        this.points.updateState([this.graph.point(13, 3)]);
+        const defaultPoints = [this.graph.point(4, 2), this.graph.point(7, 4), this.graph.point(9, 1), this.graph.point(3, 3)]
 
+        this.points.setState(defaultPoints);
+        this.points.subscribe(this.renderInputs.bind(this))
         this.toggler.addEventListener('click', this.toggle.bind(this))
-
         const bezier = new Bezier(this.graph);
-        bezier.buildBezier(this.points.state.value);
+        bezier.buildBezier(this.points);
 
-        this.points.state.value.forEach(point => {
+    }
+
+    renderInputs() {
+        while(this.coordsContainer.firstChild) {
+            this.coordsContainer.removeChild(this.coordsContainer.lastChild)
+        }
+        this.points.state.forEach(point => {
             this.coordsContainer.appendChild(new CoordBox(point).coordBox)
         })
     }

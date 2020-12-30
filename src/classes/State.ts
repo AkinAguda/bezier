@@ -12,49 +12,49 @@ export default class State<T> {
         }
     }
 
-    get state() {
-        return this._state
+    get state(): T {
+        return this._state.value
     }
 
     setState(value: T) {
-        this.state.prev = this.state.value;
-        this.state.value = value;
-        this.state.subscriptions.forEach(({ handler }: { handler: handlerType<T>}) => handler({
-            value: this.state.value,
-            prev: this.state.prev,
+        this._state.prev = this._state.value;
+        this._state.value = value;
+        this._state.subscriptions.forEach(({ handler }: { handler: handlerType<T>}) => handler({
+            value: this._state.value,
+            prev: this._state.prev,
         }))
     }
 
     updateState(value: T) {
         if (value && typeof value === "object") {
             if (Array.isArray(value)) {
-                if (Array.isArray(this.state.value)) {
-                    this.state.prev = this.state.value;
-                    this.state.value = [...this.state.value, ...value]
+                if (Array.isArray(this._state.value)) {
+                    this._state.prev = this._state.value;
+                    this._state.value = [...this._state.value, ...value];
                 }
             } else {
-                if (typeof this.state.value === 'object' && !Array.isArray(this.state.value)) {
-                    this.state.prev = this.state.value;
-                    this.state.value = { ...this.state.value, ...value }
+                if (typeof this._state.value === 'object' && !Array.isArray(this._state.value)) {
+                    this._state.prev = this._state.value;
+                    this._state.value = { ...this._state.value, ...value }
                 }
             }
         } else {
-            this.state.prev = this.state.value;
-            this.state.value = value;
-            this.state.subscriptions.forEach(({ handler }: { handler: handlerType<T>}) => handler({
-                value: this.state.value,
-                prev: this.state.prev,
+            this._state.prev = this._state.value;
+            this._state.value = value;
+            this._state.subscriptions.forEach(({ handler }: { handler: handlerType<T>}) => handler({
+                value: this._state.value,
+                prev: this._state.prev,
             }))
         }
     }
     
     subscribe(handler: handlerType<T>) {
         const key = makeid(7);
-        this.state.subscriptions.push({ key, handler });
-        return { key: this.state.subscriptions[this.state.subscriptions.length - 1].key }
+        this._state.subscriptions.push({ key, handler });
+        return { key: this._state.subscriptions[this._state.subscriptions.length - 1].key }
     }
 
     unSubscibe(key: string) {
-        this.state.subscriptions = this.state.subscriptions.filter(subscription => subscription.key !== key)
+        this._state.subscriptions = this._state.subscriptions.filter(subscription => subscription.key !== key)
     }
 }

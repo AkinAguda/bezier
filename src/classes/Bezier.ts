@@ -1,5 +1,6 @@
 import Graph from './Graph';
 import Point from './Point';
+import State from './State';
 
 import { combination, returnAxi, distBetweenPoints } from '../helpers';
 
@@ -9,7 +10,7 @@ export enum PointType {
 }
 export default class Bezier {
     constructor(public graph: Graph) {}
-    controlPoints: Array<Point>;
+    controlPoints: State<Array<Point>>;
     selectedControlPointIndex: number | null = null;
 
     calculateValue(n: number, i: number, t: number, axi: number) : number {
@@ -26,7 +27,7 @@ export default class Bezier {
 
     getBezierPoints(points: Array<Point>): Array<Point> {
         const pts: Array<Point> = [];
-        this.controlPoints = [...points]
+        this.controlPoints.setState([...points])
         for (let i = 0; i <= 1; i = Math.round((i + 0.05 + Number.EPSILON) * 100) / 100) {
             pts.push(this.graph.point(this.summation(points.length - 1, 0, i, points, PointType.x ), this.summation(points.length - 1, 0, i, points, PointType.y )))
         }
@@ -41,7 +42,7 @@ export default class Bezier {
         if ((iter >= 0) && (iter < points.length - 1)) {
             this.graph.line(points[iter], points[iter + 1])
         } else {
-            this.controlPoints.forEach((controlPoint, index) => {
+            this.controlPoints.state.forEach((controlPoint, index) => {
                 if (this.graph.drag.isDragging && (this.selectedControlPointIndex === null)) {
                     if (distBetweenPoints(controlPoint, this.graph.drag.point) <= 5) {
                         this.selectedControlPointIndex = index
@@ -66,9 +67,13 @@ export default class Bezier {
         iter ++
     }
 
-    buildBezier(controlPoints: Array<Point>) {
-        const points = this.getBezierPoints(controlPoints)
-        this.drawLine(points, controlPoints)
+    buildBezier(controlPoints: State<Array<Point>>) {
+        this.controlPoints = controlPoints;
+        this.controlPoints.state.forEach(cp => {
+            cp.drawCircle(this.graph.ctx)
+        })
+        const points = this.getBezierPoints(controlPoints.state)
+        this.drawLine(points, controlPoints.state)
     }
 
 }

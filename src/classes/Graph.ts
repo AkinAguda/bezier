@@ -39,7 +39,6 @@ export default class Graph {
             if (this.drag.isDragging) {
                 const rect = this._canvas.getBoundingClientRect();
                 this.drag.point = this.pointRaw(event.clientX - rect.left, event.clientY - rect.top);
-                // console.log(this.pointRaw(200, 255))
             }
         })
         const s = new State([3])

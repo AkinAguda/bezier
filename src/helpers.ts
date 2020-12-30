@@ -34,4 +34,6 @@ export const makeid = (length: number) => {
        result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
- }
+}
+
+// export const isObjectTypeGuard<T> = 

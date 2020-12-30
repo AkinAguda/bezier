@@ -2,13 +2,13 @@ export interface GraphInterfaces {
     id: string,
 }
 export interface HandlerParameters<T> {
-    value: T | Array<any> | {};
-    prev: T | Array<any> | {}
+    value: T;
+    prev: T
 }
 
 export type handlerType<T> = (params: HandlerParameters<T>) => void;
 export interface StateInterface<T> {
-    value: T | Array<any>,
-    prev: T | Array<any>,
+    value: T | any,
+    prev: T | any,
     subscriptions: Array<{key: string, handler: handlerType<T>}>
 }
