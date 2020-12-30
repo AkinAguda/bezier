@@ -1,10 +1,14 @@
+import { makeid } from '../helpers';
+
 export default class Point {
+    id: string;
     constructor(
         private _xValue: number,
         private _yValue: number,
         private _rawXValue?: number,
         private _rawYValue?: number
         ) {
+            this.id = makeid(5);
     }
 
     drawCircle (ctx: CanvasRenderingContext2D) {

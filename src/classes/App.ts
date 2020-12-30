@@ -33,7 +33,7 @@ export default class App {
             this.coordsContainer.removeChild(this.coordsContainer.lastChild)
         }
         this.points.state.forEach(point => {
-            this.coordsContainer.appendChild(new CoordBox(point).coordBox)
+            this.coordsContainer.appendChild(new CoordBox(point, this.points).coordBox)
         })
     }
 

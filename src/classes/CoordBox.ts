@@ -1,5 +1,5 @@
 import { makeid } from '../helpers';
-import Graph from './Graph';
+import State from './State';
 import Point from './Point';
 
 export default class CoordBox {
@@ -8,7 +8,7 @@ export default class CoordBox {
     point: Point;
     xInputNode: HTMLInputElement;
     yInputNode: HTMLInputElement;
-    constructor(point: Point) {
+    constructor(point: Point, public controlPoints: State<Array<Point>>) {
         this.id = makeid(5);
         this.point = point;
 
@@ -57,6 +57,7 @@ export default class CoordBox {
 
         const removeButton = document.createElement('button');
         removeButton.classList.add('remove-coord-box');
+        removeButton.onclick = () => this.removePoint.call(this, this.point);
 
         controlsContainer.appendChild(addButton);
         controlsContainer.appendChild(removeButton);
@@ -68,6 +69,9 @@ export default class CoordBox {
     setValues(point: Point) {
         this.xInputNode.value = point.x.toString();
         this.yInputNode.value = point.y.toString();
+    }
+    removePoint(point: Point) {
+        this.controlPoints.setState(this.controlPoints.state.filter(controlPoint => controlPoint.id !== point.id))
     }
     xOnChange(event: Event) {
     }
