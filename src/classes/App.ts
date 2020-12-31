@@ -3,6 +3,7 @@ import Graph from './Graph';
 import Bezier from './Bezier';
 import CoordBox from './CoordBox';
 import State from './State';
+
 export default class App {
     toggler: HTMLElement;
     canvasContainer: HTMLElement;
@@ -12,6 +13,7 @@ export default class App {
     points: State<Array<Point>> = new State([]);
     graph: Graph;
     bezier: Bezier;
+
     constructor() {
         this.toggler = document.getElementById('toggler');
         this.canvasContainer = document.getElementById("canvas-container");
