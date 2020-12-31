@@ -49,22 +49,26 @@ export default class Bezier {
                     }
                 }
                 if (this.selectedControlPointIndex !== null) {
-                    this.graph.clear();
                     controlPoints[this.selectedControlPointIndex].setX(this.graph.drag.point.x);
                     controlPoints[this.selectedControlPointIndex].setRawX(this.graph.drag.point.rawX);
                     controlPoints[this.selectedControlPointIndex].setY(this.graph.drag.point.y);
                     controlPoints[this.selectedControlPointIndex].setRawY(this.graph.drag.point.rawY);
-                    const computedPoints = this.getBezierPoints(controlPoints);
-                    controlPoints.forEach(cp => {
-                        cp.drawCircle(this.graph.ctx)
-                    })
-                    for (let i = 0; i < computedPoints.length - 1; i++) {
-                        this.graph.line(computedPoints[i], computedPoints[i + 1])
-                    }
+                    this.generateCurve(controlPoints)
                 }
             })
         }
         iter ++
+    }
+
+    generateCurve(points: Array<Point>) {
+        const computedPoints = this.getBezierPoints(points);
+        this.graph.clear();
+        points.forEach(cp => {
+            cp.drawCircle(this.graph.ctx)
+        })
+        for (let i = 0; i < computedPoints.length - 1; i++) {
+            this.graph.line(computedPoints[i], computedPoints[i + 1])
+        }
     }
 
     buildBezier(controlPoints: State<Array<Point>>) {

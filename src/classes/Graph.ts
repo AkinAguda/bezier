@@ -1,6 +1,5 @@
 import { GraphInterfaces } from '../interfaces';
 import Point from './Point';
-import State from './State';
 
 type Drag = {
     isDragging: boolean,

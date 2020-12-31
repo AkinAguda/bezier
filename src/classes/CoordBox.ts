@@ -38,14 +38,14 @@ export default class CoordBox {
         const xInput = document.createElement('input');
         xInput.type = 'number';
         xInput.id = `x-coord-${this.id}`;
-        xInput.onchange = this.xOnChange;
+        xInput.onchange = this.xOnChange.bind(this);
         xInput.value = this.point.x.toString();
         this.xInputNode = xInput;
         
         const yInput = document.createElement('input');
         yInput.type = 'number';
         yInput.id = `y-coord-${this.id}`;
-        yInput.onchange = this.yOnChange;
+        yInput.onchange = this.yOnChange.bind(this);
         yInput.value = this.point.y.toString();
         this.yInputNode = yInput;
 
@@ -88,8 +88,30 @@ export default class CoordBox {
         this.app.points.setState([...arr1, ...arr2]);
         this.app.bezier.buildBezier(this.app.points)
     }
-    xOnChange(event: Event) {
+    xOnChange(event: KeyboardEvent) {
+        const value = (event.target as HTMLInputElement).value;
+        if (value && (value !== this.point.x.toString())) {
+            this.app.points.setState(this.app.points.state.map(point => {
+                if (point.id === this.point.id) {
+                    return this.app.graph.point(Number(value), point.y)
+                } else {
+                    return point
+                }
+            }))
+        }
+        this.app.bezier.generateCurve(this.app.points.state);
     }
-    yOnChange(event: MouseEvent) {
+    yOnChange(event: KeyboardEvent) {
+        const value = (event.target as HTMLInputElement).value;
+        if (value && (value !== this.point.y.toString())) {
+            this.app.points.setState(this.app.points.state.map(point => {
+                if (point.id === this.point.id) {
+                    return this.app.graph.point(point.x, Number(value))
+                } else {
+                    return point
+                }
+            }))
+        }
+        this.app.bezier.generateCurve(this.app.points.state);
     }
 }
