@@ -2,7 +2,7 @@ import { makeid } from '../helpers';
 
 export default class Point {
     id: string;
-    radius: number = 5;
+    radius: number = 8;
     constructor(
         private _xValue: number,
         private _yValue: number,
