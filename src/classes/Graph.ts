@@ -86,6 +86,7 @@ export default class Graph {
     clear() {
         this.ctx.clearRect(10, this.height - 10, this.width, -this.width)
     }
+
     get ctx () {
         return this._ctx
     }

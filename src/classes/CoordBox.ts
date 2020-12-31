@@ -1,6 +1,9 @@
 import { makeid } from '../helpers';
 import State from './State';
 import Point from './Point';
+import Graph from './Graph';
+// import Bezier from './Bezier';
+import App from './App';
 
 export default class CoordBox {
     id: string;
@@ -8,7 +11,7 @@ export default class CoordBox {
     point: Point;
     xInputNode: HTMLInputElement;
     yInputNode: HTMLInputElement;
-    constructor(point: Point, public controlPoints: State<Array<Point>>) {
+    constructor(point: Point, public app: App) {
         this.id = makeid(5);
         this.point = point;
 
@@ -71,7 +74,8 @@ export default class CoordBox {
         this.yInputNode.value = point.y.toString();
     }
     removePoint(point: Point) {
-        this.controlPoints.setState(this.controlPoints.state.filter(controlPoint => controlPoint.id !== point.id))
+        this.app.points.setState(this.app.points.state.filter(controlPoint => controlPoint.id !== point.id));
+        this.app.bezier.buildBezier(this.app.points)
     }
     xOnChange(event: Event) {
     }

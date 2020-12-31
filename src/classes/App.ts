@@ -11,6 +11,7 @@ export default class App {
     coordsContainer: HTMLElement;
     points: State<Array<Point>> = new State([]);
     graph: Graph;
+    bezier: Bezier;
     constructor() {
         this.toggler = document.getElementById('toggler');
         this.canvasContainer = document.getElementById("canvas-container");
@@ -23,8 +24,8 @@ export default class App {
         this.points.setState(defaultPoints);
         this.points.subscribe(this.renderInputs.bind(this))
         this.toggler.addEventListener('click', this.toggle.bind(this))
-        const bezier = new Bezier(this.graph);
-        bezier.buildBezier(this.points);
+        this.bezier = new Bezier(this.graph);
+        this.bezier.buildBezier(this.points);
 
     }
 
@@ -33,7 +34,7 @@ export default class App {
             this.coordsContainer.removeChild(this.coordsContainer.lastChild)
         }
         this.points.state.forEach(point => {
-            this.coordsContainer.appendChild(new CoordBox(point, this.points).coordBox)
+            this.coordsContainer.appendChild(new CoordBox(point, this).coordBox)
         })
     }
 

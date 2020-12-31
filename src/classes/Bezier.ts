@@ -68,6 +68,7 @@ export default class Bezier {
     }
 
     buildBezier(controlPoints: State<Array<Point>>) {
+        this.graph.clear();
         this.controlPoints = controlPoints;
         this.controlPoints.state.forEach(cp => {
             cp.drawCircle(this.graph.ctx)

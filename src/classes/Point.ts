@@ -2,6 +2,7 @@ import { makeid } from '../helpers';
 
 export default class Point {
     id: string;
+    radius: number = 5;
     constructor(
         private _xValue: number,
         private _yValue: number,
@@ -13,7 +14,7 @@ export default class Point {
 
     drawCircle (ctx: CanvasRenderingContext2D) {
         ctx.beginPath();
-        ctx.arc(this.rawX, this.rawY, 5, 0, 2 * Math.PI);
+        ctx.arc(this.rawX, this.rawY, this.radius, 0, 2 * Math.PI);
         ctx.shadowOffsetX = 0;
         ctx.shadowOffsetY = 0;
         ctx.strokeStyle = 'white';
