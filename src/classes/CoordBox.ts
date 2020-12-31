@@ -54,16 +54,17 @@ export default class CoordBox {
         const controlsContainer = document.createElement('div');
 
         controlsContainer.classList.add('add-red-container');
-
         const addButton = document.createElement('button');
         addButton.classList.add('add-coord-box');
-
-        const removeButton = document.createElement('button');
-        removeButton.classList.add('remove-coord-box');
-        removeButton.onclick = () => this.removePoint.call(this, this.point);
-
         controlsContainer.appendChild(addButton);
-        controlsContainer.appendChild(removeButton);
+
+
+        if(this.app.points.state.length > 1) {
+            const removeButton = document.createElement('button');
+            removeButton.classList.add('remove-coord-box');
+            removeButton.onclick = () => this.removePoint.call(this, this.point);
+            controlsContainer.appendChild(removeButton);
+        }
 
         coordBox.appendChild(controlsContainer);
         coordBox.onclick
