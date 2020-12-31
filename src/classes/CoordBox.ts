@@ -15,16 +15,19 @@ export default class CoordBox {
         this.id = makeid(5);
         this.point = point;
 
-        // <div class="coord-box">
-        //     <div class="coord-section">
-        //         <input type='number' id='x-coord'/>
-        //         <input type='number' id='y-coord' />
-        //     </div>
-        //     <div class="add-red-container">
-        //         <button class="add-coord-box"></button>
-        //         <button class="remove-coord-box"></button>
-        //     </div>
-        // </div>
+        /*
+        This is the html that is being generated
+
+        <div class="coord-box">
+            <div class="coord-section">
+                <input type='number' id='x-coord'/>
+                <input type='number' id='y-coord' />
+            </div>
+            <div class="add-red-container">
+                <button class="add-coord-box"></button>
+                <button class="remove-coord-box"></button>
+            </div>
+        </div> */
 
         const coordBox = document.createElement('div');
         coordBox.classList.add('coord-box');
@@ -56,8 +59,8 @@ export default class CoordBox {
         controlsContainer.classList.add('add-red-container');
         const addButton = document.createElement('button');
         addButton.classList.add('add-coord-box');
+        addButton.onclick = () => this.addNewPointAfterPoint.call(this, point)
         controlsContainer.appendChild(addButton);
-
 
         if(this.app.points.state.length > 1) {
             const removeButton = document.createElement('button');
@@ -67,7 +70,6 @@ export default class CoordBox {
         }
 
         coordBox.appendChild(controlsContainer);
-        coordBox.onclick
         this.coordBox = coordBox
     }
     setValues(point: Point) {
@@ -76,6 +78,14 @@ export default class CoordBox {
     }
     removePoint(point: Point) {
         this.app.points.setState(this.app.points.state.filter(controlPoint => controlPoint.id !== point.id));
+        this.app.bezier.buildBezier(this.app.points)
+    }
+    addNewPointAfterPoint(point: Point) {
+        const pointIndex = this.app.points.state.findIndex(controlPoint => controlPoint === point);
+        const arr1 = this.app.points.state.slice(0, pointIndex + 1);
+        const arr2 = this.app.points.state.slice(pointIndex + 1);
+        arr1.push(this.app.graph.point(0.5, 0.5));
+        this.app.points.setState([...arr1, ...arr2]);
         this.app.bezier.buildBezier(this.app.points)
     }
     xOnChange(event: Event) {

@@ -41,17 +41,7 @@ export default class Graph {
                 this.drag.point = this.pointRaw(event.clientX - rect.left, event.clientY - rect.top);
             }
         })
-        const s = new State([3])
-        for (let i = 0; i < this._canvas.width / this._scale; i++) {
-            this._ctx.font = "12px Comic Sans MS";
-            this.ctx.fillStyle = '#abadb3';
-            const point = this.point(i, 0);
-            this.ctx.fillText(point.x.toString(), point.rawX, point.rawY);
-        }
-        for (let i = 1; i < this._canvas.height / this._scale; i++) {
-            const point = this.point(0, i);
-            this.ctx.fillText(point.y.toString(), point.rawX, point.rawY);
-        }
+        this._printAxes();
         this.initialStyles()
     }
 
@@ -83,8 +73,21 @@ export default class Graph {
         const newPoint = this.point(x / this._scale, (this.height - y) / this._scale, true);
         return newPoint
     }
+    _printAxes() {
+        for (let i = 0; i < this._canvas.width / this._scale; i++) {
+            this._ctx.font = "12px Comic Sans MS";
+            this.ctx.fillStyle = '#abadb3';
+            const point = this.point(i, 0);
+            this.ctx.fillText(point.x.toString(), point.rawX, point.rawY);
+        }
+        for (let i = 1; i < this._canvas.height / this._scale; i++) {
+            const point = this.point(0, i);
+            this.ctx.fillText(point.y.toString(), point.rawX, point.rawY);
+        }
+    }
     clear() {
-        this.ctx.clearRect(10, this.height - 10, this.width, -this.width)
+        this.ctx.clearRect(0, 0, this.width, this.height)
+        this._printAxes();
     }
 
     get ctx () {
