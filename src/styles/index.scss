@@ -29,6 +29,10 @@ main {
     .left {
       transition: 0.3s border-radius ease-out;
       border-radius: 0;
+      .canvas-container {
+        max-width: calc(100vw - 287px) !important;
+        width: calc(100vw - 287px) !important;
+      }
     }
   }
   & > * {
@@ -62,9 +66,19 @@ main {
         box-shadow: 2px 18px 18px 3px rgba(0, 0, 0, 0.1);
         padding: 45px 60px;
         box-sizing: border-box;
+        max-width: calc(75vw - 220px);
+        width: calc(75vw - 220px);
+        overflow: hidden;
+        overflow-x: scroll;
+        scrollbar-width: none;
+        transition: 0.3s;
+        &::-webkit-scrollbar {
+          display: none;
+        }
         .canvas {
           height: 100%;
           width: 100%;
+          width: 78vw;
         }
       }
       .math {
