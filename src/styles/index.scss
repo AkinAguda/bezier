@@ -30,6 +30,7 @@ main {
       transition: 0.3s border-radius ease-out;
       border-radius: 0;
       .canvas-container {
+        transition: 0.3s;
         max-width: calc(100vw - 287px) !important;
         width: calc(100vw - 287px) !important;
       }
@@ -71,7 +72,6 @@ main {
         overflow: hidden;
         overflow-x: scroll;
         scrollbar-width: none;
-        transition: 0.3s;
         &::-webkit-scrollbar {
           display: none;
         }
@@ -271,4 +271,8 @@ main {
     margin: auto 0 auto 20px;
     box-shadow: 7px 7px 10px 0px rgba(0, 0, 0, 0.1);
   }
+}
+
+.transition {
+  transition: 0.3s;
 }

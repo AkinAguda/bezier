@@ -44,7 +44,10 @@ export default class App {
         if (this.main.classList.contains('closed')) {
             this.main.classList.remove('closed')
         } else {
-            this.main.classList.add('closed')
+            this.main.classList.add('closed');
+            if (!this.canvasContainer.classList.contains('transition')) {
+                this.canvasContainer.classList.add('transition')
+            }
         }
     }
 }
