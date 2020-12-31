@@ -49,10 +49,10 @@ export default class Bezier {
                     }
                 }
                 if (this.selectedControlPointIndex !== null) {
-                    controlPoints[this.selectedControlPointIndex].setX(this.graph.drag.point.x);
-                    controlPoints[this.selectedControlPointIndex].setRawX(this.graph.drag.point.rawX);
-                    controlPoints[this.selectedControlPointIndex].setY(this.graph.drag.point.y);
-                    controlPoints[this.selectedControlPointIndex].setRawY(this.graph.drag.point.rawY);
+                    controlPoints[this.selectedControlPointIndex].setX(Number(this.graph.drag.point.x.toFixed(2)));
+                    controlPoints[this.selectedControlPointIndex].setRawX(Number(this.graph.drag.point.rawX.toFixed(2)));
+                    controlPoints[this.selectedControlPointIndex].setY(Number(this.graph.drag.point.y.toFixed(2)));
+                    controlPoints[this.selectedControlPointIndex].setRawY(Number(this.graph.drag.point.rawY.toFixed(2)));
                     this.generateCurve(controlPoints)
                 }
             })
