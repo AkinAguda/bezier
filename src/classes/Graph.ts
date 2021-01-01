@@ -77,11 +77,11 @@ export default class Graph {
             this._ctx.font = "12px Comic Sans MS";
             this.ctx.fillStyle = '#abadb3';
             const point = this.point(i, 0);
-            this.ctx.fillText(point.x.toString(), point.rawX, point.rawY);
+            this.ctx.fillText(point.x.toString(), i === 0 ? point.rawX : point.rawX - 6, point.rawY);
         }
         for (let i = 1; i < this._canvas.height / this._scale; i++) {
             const point = this.point(0, i);
-            this.ctx.fillText(point.y.toString(), point.rawX, point.rawY);
+            this.ctx.fillText(point.y.toString(), point.rawX, point.rawY + 6);
         }
     }
     clear() {
