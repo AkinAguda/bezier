@@ -19,6 +19,19 @@ module.exports = {
                     "sass-loader",
                 ],
             },
+            {
+                test: /\.(png|jpe?g|gif|svg|ttf|woff|otf)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[contenthash].[ext]',
+                            outputPath: 'dist/fonts',
+                            esModule: false // <- here
+                        }
+                    }
+                ]
+            }
         ],
     },
     resolve: {

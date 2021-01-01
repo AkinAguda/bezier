@@ -1,5 +1,15 @@
 @import "./variables";
 
+@font-face {
+  font-family: nunito-bold;
+  src: url(../../dist/fonts/Nunito-Bold.ttf);
+}
+
+@font-face {
+  font-family: nunito-regular;
+  src: url(../../dist/fonts/Nunito-Regular.ttf);
+}
+
 body {
   background-color: $dark;
 }
@@ -56,9 +66,22 @@ main {
       justify-content: space-between;
       .intro {
         height: 25%;
+        max-height: 25%;
         background-color: $dark-pink;
         border-radius: $curved-border;
         box-shadow: 7px 7px 18px 15px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        font-family: sans-serif;
+        color: white;
+        box-sizing: border-box;
+        h1 {
+          margin: 0;
+          font-family: nunito-bold;
+        }
+        h3 {
+          font-family: nunito-regular;
+          font-size: 12px;
+        }
       }
       .canvas-container {
         height: 50%;
