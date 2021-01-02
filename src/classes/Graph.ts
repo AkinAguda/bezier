@@ -1,10 +1,12 @@
 import { GraphInterfaces } from '../interfaces';
+import { distBetweenPoints } from '../helpers';
 import Point from './Point';
 
 type Drag = {
     isDragging: boolean,
     mouseDown: boolean,
-    point: Point | null
+    point: Point | null,
+    hover: boolean
 }
 export default class Graph {
     private _height: number;
@@ -12,7 +14,9 @@ export default class Graph {
     private _canvas: HTMLCanvasElement;
     private _ctx: CanvasRenderingContext2D;
     private _scale: number = 50;
-    drag: Drag = { isDragging: false, mouseDown: false, point: null };
+    drag: Drag = { isDragging: false, mouseDown: false, point: null, hover: false };
+    cursor: Point = new Point(0, 0, -50, -50);
+    
     constructor(proprties: GraphInterfaces) {
         this._canvas = document.getElementById(proprties.id) as HTMLCanvasElement;
         this._ctx = this._canvas.getContext("2d");
@@ -29,15 +33,34 @@ export default class Graph {
             this.drag.mouseDown = false
         })
         this._canvas.addEventListener('mousemove', (event) => {
+            const rect = this._canvas.getBoundingClientRect();
+            this.cursor = this.pointRaw(event.clientX - rect.left, event.clientY - rect.top);
             if (this.drag.mouseDown) {
                 this.drag.isDragging = true;
             } else {
                 this.drag.isDragging = false
             }
             if (this.drag.isDragging) {
-                const rect = this._canvas.getBoundingClientRect();
                 this.drag.point = this.pointRaw(event.clientX - rect.left, event.clientY - rect.top);
             }
+            this.drag.hover = false;
+            proprties.points.state.forEach(controlPoint => {
+                if (distBetweenPoints(controlPoint, this.cursor) <= controlPoint.radius) {
+                    this.drag.hover = true;
+                }
+            })
+            if (this.drag.hover) {
+                this._canvas.style.cursor = "pointer"
+            } else {
+                this.canvas.style.cursor = 'auto'
+            }
+        })
+        this._canvas.addEventListener('dblclick', () => {
+            proprties.points.state.forEach(controlPoint => {
+                if (distBetweenPoints(controlPoint, this.cursor) <= controlPoint.radius) {
+                    this.drag.isDragging = true
+                }
+            })
         })
         this._printAxes();
     }
@@ -98,6 +121,9 @@ export default class Graph {
     }
     get height() {
         return this._height
+    }
+    get canvas() {
+        return this._canvas
     }
 
 }

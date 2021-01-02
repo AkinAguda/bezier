@@ -45,7 +45,7 @@ export default class Bezier {
         } else {
             this.controlPoints.state.forEach((controlPoint, index) => {
                 if (this.graph.drag.isDragging && (this.selectedControlPointIndex === null)) {
-                    if (distBetweenPoints(controlPoint, this.graph.drag.point) <= 5) {
+                    if (distBetweenPoints(controlPoint, this.graph.drag.point) <= controlPoint.radius) {
                         this.selectedControlPointIndex = index
                     }
                 }

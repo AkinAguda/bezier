@@ -1,5 +1,9 @@
+import State from './classes/State';
+import Point from './classes/Point';
+
 export interface GraphInterfaces {
     id: string,
+    points?: State<Array<Point>>
 }
 export interface HandlerParameters<T> {
     value: T;
