@@ -21,7 +21,7 @@ export default class App {
         this.main = document.getElementById('main');
         this.coordsContainer = document.getElementById('coords-container');
         this.graph = new Graph({ id: "myCanvas", points: this.points });
-        const defaultPoints = [this.graph.point(4, 2), this.graph.point(7, 4), this.graph.point(9, 1), this.graph.point(3, 3)]
+        const defaultPoints = [this.graph.point(3, 4), this.graph.point(6, 6), this.graph.point(8, 2), this.graph.point(12, 5)]
 
         this.points.setState(defaultPoints);
         this.points.subscribe(this.renderInputs.bind(this))

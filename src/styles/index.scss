@@ -89,7 +89,7 @@ main {
         }
       }
       .canvas-container {
-        height: 50%;
+        height: 70%;
         border-radius: $curved-border;
         background-color: $dark;
         box-shadow: 2px 18px 18px 3px rgba(0, 0, 0, 0.1);
@@ -108,12 +108,6 @@ main {
           width: 100%;
           width: 78vw;
         }
-      }
-      .math {
-        height: 15%;
-        box-shadow: 2px 18px 18px 3px rgba(0, 0, 0, 0.1);
-        border-radius: $curved-border;
-        background-color: $purple;
       }
       .toggler-container {
         $height: 40px;
