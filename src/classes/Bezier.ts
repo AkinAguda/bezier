@@ -8,6 +8,7 @@ export enum PointType {
     x,
     y
 }
+
 export default class Bezier {
     constructor(public graph: Graph) {}
     controlPoints: State<Array<Point>>;
@@ -28,7 +29,7 @@ export default class Bezier {
     getBezierPoints(points: Array<Point>): Array<Point> {
         const pts: Array<Point> = [];
         this.controlPoints.setState([...points])
-        for (let i = 0; i <= 1; i = Math.round((i + 0.05 + Number.EPSILON) * 100) / 100) {
+        for (let i = 0; i <= 1; i = Math.round((i + 0.02 + Number.EPSILON) * 100) / 100) {
             pts.push(this.graph.point(this.summation(points.length - 1, 0, i, points, PointType.x ), this.summation(points.length - 1, 0, i, points, PointType.y )))
         }
         return pts
@@ -40,7 +41,7 @@ export default class Bezier {
             this.selectedControlPointIndex = null
         }
         if ((iter >= 0) && (iter < points.length - 1)) {
-            this.graph.line(points[iter], points[iter + 1])
+            this.graph.line(points[iter], points[iter + 1]);
         } else {
             this.controlPoints.state.forEach((controlPoint, index) => {
                 if (this.graph.drag.isDragging && (this.selectedControlPointIndex === null)) {
@@ -63,22 +64,28 @@ export default class Bezier {
     generateCurve(points: Array<Point>) {
         const computedPoints = this.getBezierPoints(points);
         this.graph.clear();
-        points.forEach(cp => {
-            cp.drawCircle(this.graph.ctx)
-        })
+        this.graph.defaultStyles();
+        this.indicatePoints();
         for (let i = 0; i < computedPoints.length - 1; i++) {
             this.graph.line(computedPoints[i], computedPoints[i + 1])
         }
     }
 
+    indicatePoints() {
+        this.controlPoints.state.forEach((controlPoint, index, arr) => {
+            if (index === 0 || index === this.controlPoints.state.length - 1) {
+                controlPoint.drawCircle(this.graph, true)
+            }
+            controlPoint.drawCircle(this.graph)
+        })
+    }
+
     buildBezier(controlPoints: State<Array<Point>>) {
         this.graph.clear();
         this.controlPoints = controlPoints;
-        this.controlPoints.state.forEach(cp => {
-            cp.drawCircle(this.graph.ctx)
-        })
         const points = this.getBezierPoints(controlPoints.state)
-        this.drawLine(points, controlPoints.state)
+        this.drawLine(points, controlPoints.state);
+        this.indicatePoints();
     }
 
 }

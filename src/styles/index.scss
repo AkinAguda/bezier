@@ -67,6 +67,7 @@ main {
       .intro {
         height: 25%;
         max-height: 25%;
+        overflow-y: scroll;
         background-color: $dark-pink;
         border-radius: $curved-border;
         box-shadow: 7px 7px 18px 15px rgba(0, 0, 0, 0.1);
@@ -74,6 +75,10 @@ main {
         font-family: sans-serif;
         color: white;
         box-sizing: border-box;
+        scrollbar-width: none;
+        &::-webkit-scrollbar {
+          display: none;
+        }
         h1 {
           margin: 0;
           font-family: nunito-bold;

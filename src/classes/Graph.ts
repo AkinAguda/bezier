@@ -13,7 +13,6 @@ export default class Graph {
     private _ctx: CanvasRenderingContext2D;
     private _scale: number = 50;
     drag: Drag = { isDragging: false, mouseDown: false, point: null };
-    points: Array<Point> = [];
     constructor(proprties: GraphInterfaces) {
         this._canvas = document.getElementById(proprties.id) as HTMLCanvasElement;
         this._ctx = this._canvas.getContext("2d");
@@ -41,35 +40,37 @@ export default class Graph {
             }
         })
         this._printAxes();
-        this.initialStyles()
     }
 
-    initialStyles() {
+    defaultStyles() {
+        this._ctx.lineWidth = 0;
         this._ctx.strokeStyle = 'white';
-        this._ctx.shadowColor='blue';
+        this._ctx.shadowColor='transparent';
         this._ctx.shadowOffsetX = 0;
         this._ctx.shadowOffsetY = 0;
-        this._ctx.shadowBlur = 3;
-        this._ctx.lineWidth = 2;
+        this._ctx.shadowBlur = 0;
+        this._ctx.globalCompositeOperation='source-over';
     }
 
-    line(p1: Point, p2: Point) {
+    line(p1: Point, p2: Point, color?: string) {
+        this.defaultStyles();
+        this._ctx.beginPath();
         this._ctx.moveTo(p1.rawX, p1.rawY);
         this._ctx.lineTo(p2.rawX, p2.rawY);
-        this._ctx.strokeStyle = 'white';
-        this._ctx.shadowOffsetX = 0;
-        this._ctx.shadowOffsetY = 0;
+        this._ctx.shadowColor= color || 'red';
+        this._ctx.shadowBlur = 5;
         this._ctx.lineWidth = 2;
+        this._ctx.globalCompositeOperation='destination-over';
         this._ctx.stroke();
+        this.defaultStyles();
     }
-    point(x: number, y: number, noPush?: boolean): Point {
+    point(x: number, y: number): Point {
+        this.defaultStyles();
         const newPoint = new Point(x, y, (x * this._scale), this._height - (y * this._scale));
-        this._ctx.moveTo(newPoint.rawX, newPoint.rawY);
-        !noPush && this.points.push(newPoint);
         return newPoint
     }
     pointRaw(x: number, y: number): Point {
-        const newPoint = this.point(x / this._scale, (this.height - y) / this._scale, true);
+        const newPoint = this.point(x / this._scale, (this.height - y) / this._scale);
         return newPoint
     }
     _printAxes() {

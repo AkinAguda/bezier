@@ -1,4 +1,5 @@
 import { makeid } from '../helpers';
+import Graph from './Graph';
 
 export default class Point {
     id: string;
@@ -12,12 +13,17 @@ export default class Point {
             this.id = makeid(5);
     }
 
-    drawCircle (ctx: CanvasRenderingContext2D) {
+    drawCircle (graph: Graph, redPoint?: true) {
+        const { ctx, defaultStyles } = graph;
         ctx.beginPath();
         ctx.arc(this.rawX, this.rawY, this.radius, 0, 2 * Math.PI);
-        ctx.shadowOffsetX = 0;
-        ctx.shadowOffsetY = 0;
-        ctx.strokeStyle = 'white';
+        defaultStyles.call(graph);
+        const color = 'black';
+        ctx.shadowBlur = redPoint? 15 : 5;
+        ctx.strokeStyle = color;
+        ctx.shadowColor = redPoint ? "red" : 'blue';
+        ctx.fillStyle= color;
+        ctx.fill();
         ctx.stroke();
     }
     get x () {
