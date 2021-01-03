@@ -321,8 +321,10 @@ main {
       padding: 0;
       list-style-type: none;
       width: 100%;
+      :not(:last-child) {
+        margin: 0px auto 35px auto;
+      }
       li {
-        margin: 0px auto 10px auto;
         img {
           margin-left: auto;
           margin-right: auto;
