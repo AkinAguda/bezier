@@ -13,6 +13,7 @@ export default class App {
     points: State<Array<Point>> = new State([]);
     graph: Graph;
     bezier: Bezier;
+    hamburger: HTMLButtonElement;
 
     constructor() {
         this.toggler = document.getElementById('toggler');
@@ -21,11 +22,13 @@ export default class App {
         this.main = document.getElementById('main');
         this.coordsContainer = document.getElementById('coords-container');
         this.graph = new Graph({ id: "myCanvas", points: this.points });
+        this.hamburger = document.getElementById("hamburger") as HTMLButtonElement;
         const defaultPoints = [this.graph.point(3, 4), this.graph.point(6, 6), this.graph.point(8, 2), this.graph.point(12, 5)]
 
         this.points.setState(defaultPoints);
         this.points.subscribe(this.renderInputs.bind(this))
-        this.toggler.addEventListener('click', this.toggle.bind(this))
+        this.hamburger.addEventListener('click', this.toggle.bind(this));
+        this.toggler.addEventListener('click', this.toggle.bind(this));
         this.bezier = new Bezier(this.graph);
         this.bezier.buildBezier(this.points);
 
