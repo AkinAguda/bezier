@@ -76,16 +76,30 @@ main {
         color: white;
         box-sizing: border-box;
         scrollbar-width: none;
+        display: flex;
+        > * {
+          flex-grow: 1;
+          flex-basis: 0;
+        }
         &::-webkit-scrollbar {
           display: none;
         }
-        h1 {
+        .heading {
           margin: 0;
           font-family: nunito-bold;
         }
-        h3 {
+        .paragraph {
           font-family: nunito-regular;
           font-size: 12px;
+        }
+        .rss-links {
+          margin: 0;
+          padding: 0;
+          list-style-type: none;
+          margin: 1rem 0;
+        }
+        a {
+          color: white;
         }
       }
       .canvas-container {

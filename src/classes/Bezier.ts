@@ -10,7 +10,12 @@ export enum PointType {
 }
 
 export default class Bezier {
-    constructor(public graph: Graph) {}
+    constructor(public graph: Graph) {
+        this.graph.canvas.addEventListener('mouseout', () => {
+            this.selectedControlPointIndex = null;
+            this.graph.drag.isDragging = false;
+        })
+    }
     controlPoints: State<Array<Point>>;
     selectedControlPointIndex: number | null = null;
 
