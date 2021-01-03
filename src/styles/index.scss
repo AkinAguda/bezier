@@ -126,6 +126,9 @@ main {
         overflow: hidden;
         overflow-x: scroll;
         scrollbar-width: none;
+        @media (hover: none) {
+          overflow-x: hidden;
+        }
         &::-webkit-scrollbar {
           display: none;
         }

@@ -30,31 +30,17 @@ export default class Graph {
             this.drag.point = this.pointRaw(event.clientX - rect.left, event.clientY - rect.top)
         })
         this._canvas.addEventListener('mouseup', () => {
-            this.drag.mouseDown = false
+            this.drag.mouseDown = false;
+            this.drag.isDragging = false;
         })
-        this._canvas.addEventListener('mousemove', (event) => {
-            const rect = this._canvas.getBoundingClientRect();
-            this.cursor = this.pointRaw(event.clientX - rect.left, event.clientY - rect.top);
-            if (this.drag.mouseDown) {
-                this.drag.isDragging = true;
-            } else {
-                this.drag.isDragging = false
-            }
-            if (this.drag.isDragging) {
-                this.drag.point = this.pointRaw(event.clientX - rect.left, event.clientY - rect.top);
-            }
-            this.drag.hover = false;
-            proprties.points.state.forEach(controlPoint => {
-                if (distBetweenPoints(controlPoint, this.cursor) <= controlPoint.radius) {
-                    this.drag.hover = true;
-                }
-            })
-            if (this.drag.hover) {
-                this._canvas.style.cursor = "pointer"
-            } else {
-                this.canvas.style.cursor = 'auto'
-            }
+        this._canvas.addEventListener('touchend', () => {
+            this.drag.mouseDown = false;
+            this.drag.isDragging = false;
         })
+        this._canvas.addEventListener('mousemove', (event) => this.moveEventHandler(event, proprties));
+
+        this._canvas.addEventListener('touchmove', (event) => this.handleTouchMove(event, proprties));
+
         this._canvas.addEventListener('dblclick', () => {
             proprties.points.state.forEach(controlPoint => {
                 if (distBetweenPoints(controlPoint, this.cursor) <= controlPoint.radius) {
@@ -63,6 +49,39 @@ export default class Graph {
             })
         })
         this._printAxes();
+    }
+
+    handleTouchMove(event: TouchEvent, proprties: GraphInterfaces) {
+        this.drag.mouseDown = true;
+        const rect = this._canvas.getBoundingClientRect();
+        this.drag.point = this.pointRaw(event.changedTouches[(event as TouchEvent).changedTouches.length - 1].clientX - rect.left, event.touches[0].clientY - rect.top);
+        this.moveEventHandler(event, proprties);
+    }
+
+    moveEventHandler(event: MouseEvent | TouchEvent, proprties: GraphInterfaces) {
+        const rect = this._canvas.getBoundingClientRect();
+        const clientX = event.type === 'mousemove' ? (event as MouseEvent).clientX : (event as TouchEvent).changedTouches[(event as TouchEvent).changedTouches.length - 1].clientX;
+        const clientY = event.type === 'mousemove' ? (event as MouseEvent).clientY : (event as TouchEvent).changedTouches[(event as TouchEvent).changedTouches.length - 1].clientY;
+        this.cursor = this.pointRaw(clientX - rect.left, clientY - rect.top);
+        if (this.drag.mouseDown) {
+            this.drag.isDragging = true;
+        } else {
+            this.drag.isDragging = false
+        }
+        if (this.drag.isDragging) {
+            this.drag.point = this.pointRaw(clientX - rect.left, clientY - rect.top);
+        }
+        this.drag.hover = false;
+        proprties.points.state.forEach(controlPoint => {
+            if (distBetweenPoints(controlPoint, this.cursor) <= controlPoint.radius) {
+                this.drag.hover = true;
+            }
+        })
+        if (this.drag.hover) {
+            this._canvas.style.cursor = "pointer"
+        } else {
+            this.canvas.style.cursor = 'auto'
+        }
     }
 
     defaultStyles() {
