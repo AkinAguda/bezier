@@ -27,6 +27,27 @@ main {
   display: flex;
   height: 100vh;
   width: 100vw;
+  .center {
+    text-align: center;
+  }
+  .heading {
+    margin: 0;
+    font-family: nunito-bold;
+    color: white;
+  }
+  .paragraph {
+    font-family: nunito-regular;
+    font-size: 12px;
+  }
+  .rss-links {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    margin: 1rem 0;
+  }
+  a {
+    color: white;
+  }
   &.closed {
     .right {
       width: 0;
@@ -83,23 +104,6 @@ main {
         }
         &::-webkit-scrollbar {
           display: none;
-        }
-        .heading {
-          margin: 0;
-          font-family: nunito-bold;
-        }
-        .paragraph {
-          font-family: nunito-regular;
-          font-size: 12px;
-        }
-        .rss-links {
-          margin: 0;
-          padding: 0;
-          list-style-type: none;
-          margin: 1rem 0;
-        }
-        a {
-          color: white;
         }
       }
       .canvas-container {
@@ -189,6 +193,10 @@ main {
       background-image: radial-gradient($blue, $purple);
       border-radius: $curved-border - 20px;
       margin: 50px 0 30px 0;
+      padding: 25px;
+      box-sizing: border-box;
+      text-align: center;
+      color: white;
     }
     .coords-container {
       overflow-y: auto;
