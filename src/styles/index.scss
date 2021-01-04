@@ -176,6 +176,7 @@ main {
         box-sizing: border-box;
         scrollbar-width: none;
         display: flex;
+        align-items: center;
         @media (max-width: $tab) {
           display: block;
           border-radius: $curved-border - 20px;
