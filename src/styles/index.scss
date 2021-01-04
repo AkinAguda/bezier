@@ -22,7 +22,6 @@
   transition: 0.3s border-radius ease-out;
   border-radius: 0;
   .canvas-container {
-    transition: 0.3s;
     max-width: calc(100vw - 287px) !important;
     width: calc(100vw - 287px) !important;
   }
@@ -91,6 +90,7 @@ main {
     margin: 0;
     font-family: nunito-bold;
     color: white;
+    line-height: 21px;
   }
   .paragraph {
     font-family: nunito-regular;
@@ -458,5 +458,7 @@ main {
 }
 
 .transition {
-  transition: 0.3s;
+  @media (min-width: $tab + 1) {
+    transition: 0.3s !important;
+  }
 }
