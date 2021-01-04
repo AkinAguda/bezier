@@ -391,6 +391,7 @@ main {
           display: flex;
           padding: 0 10px;
           box-sizing: border-box;
+          width: 100%;
           & > :nth-child(2) {
             margin-left: 10px;
           }
@@ -405,6 +406,7 @@ main {
             border-radius: 10px;
             color: rgb(202, 200, 200);
             text-align: center;
+            max-width: 8vw;
           }
         }
         .add-red-container {
