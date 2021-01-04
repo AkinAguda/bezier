@@ -25,15 +25,18 @@ export default class Graph {
         this._canvas.height = this._height;
         this._canvas.width = this._width;
         this._canvas.addEventListener('mousedown', (event) => {
+            event.preventDefault();
             this.drag.mouseDown = true
             const rect = this._canvas.getBoundingClientRect();
             this.drag.point = this.pointRaw(event.clientX - rect.left, event.clientY - rect.top)
         })
-        this._canvas.addEventListener('mouseup', () => {
+        this._canvas.addEventListener('mouseup', (event) => {
+            event.preventDefault();
             this.drag.mouseDown = false;
             this.drag.isDragging = false;
         })
-        this._canvas.addEventListener('touchend', () => {
+        this._canvas.addEventListener('touchend', (event) => {
+            event.preventDefault();
             this.drag.mouseDown = false;
             this.drag.isDragging = false;
         })
@@ -41,7 +44,8 @@ export default class Graph {
 
         this._canvas.addEventListener('touchmove', (event) => this.handleTouchMove(event, proprties));
 
-        this._canvas.addEventListener('dblclick', () => {
+        this._canvas.addEventListener('dblclick', (event) => {
+            event.preventDefault();
             proprties.points.state.forEach(controlPoint => {
                 if (distBetweenPoints(controlPoint, this.cursor) <= controlPoint.radius) {
                     this.drag.isDragging = true
@@ -52,6 +56,7 @@ export default class Graph {
     }
 
     handleTouchMove(event: TouchEvent, proprties: GraphInterfaces) {
+        event.preventDefault();
         this.drag.mouseDown = true;
         const rect = this._canvas.getBoundingClientRect();
         this.drag.point = this.pointRaw(event.changedTouches[(event as TouchEvent).changedTouches.length - 1].clientX - rect.left, event.touches[0].clientY - rect.top);
@@ -59,6 +64,7 @@ export default class Graph {
     }
 
     moveEventHandler(event: MouseEvent | TouchEvent, proprties: GraphInterfaces) {
+        event.preventDefault();
         const rect = this._canvas.getBoundingClientRect();
         const clientX = event.type === 'mousemove' ? (event as MouseEvent).clientX : (event as TouchEvent).changedTouches[(event as TouchEvent).changedTouches.length - 1].clientX;
         const clientY = event.type === 'mousemove' ? (event as MouseEvent).clientY : (event as TouchEvent).changedTouches[(event as TouchEvent).changedTouches.length - 1].clientY;
