@@ -40,6 +40,13 @@ export default class Graph {
             this.drag.mouseDown = false;
             this.drag.isDragging = false;
         })
+        this._canvas.addEventListener('touchstart', (event) => {
+            event.preventDefault();
+            this.drag.mouseDown = true;
+            const rect = this._canvas.getBoundingClientRect();
+            this.drag.point = this.pointRaw(event.changedTouches[(event as TouchEvent).changedTouches.length - 1].clientX - rect.left, event.touches[0].clientY - rect.top);
+
+        })
         this._canvas.addEventListener('mousemove', (event) => this.moveEventHandler(event, proprties));
 
         this._canvas.addEventListener('touchmove', (event) => this.handleTouchMove(event, proprties));
@@ -56,10 +63,6 @@ export default class Graph {
     }
 
     handleTouchMove(event: TouchEvent, proprties: GraphInterfaces) {
-        event.preventDefault();
-        this.drag.mouseDown = true;
-        const rect = this._canvas.getBoundingClientRect();
-        this.drag.point = this.pointRaw(event.changedTouches[(event as TouchEvent).changedTouches.length - 1].clientX - rect.left, event.touches[0].clientY - rect.top);
         this.moveEventHandler(event, proprties);
     }
 
