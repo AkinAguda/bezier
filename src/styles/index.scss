@@ -162,7 +162,10 @@ main {
   }
   .paragraph {
     font-family: nunito-regular;
-    font-size: 12px;
+    font-size: 13px;
+    @media (min-width: $big) {
+      font-size: 17px;
+    }
   }
   .rss-links {
     margin: 0;
