@@ -12,18 +12,35 @@
 
 @mixin right-closed-styles {
   overflow: hidden;
+  transition: 0.3s;
   padding: 0;
+  width: 0;
   & > * {
     visibility: hidden;
   }
 }
 
 @mixin left-closed-styles {
-  transition: 0.3s border-radius ease-out;
   border-radius: 0;
-  .canvas-container {
-    max-width: calc(100vw - 287px) !important;
-    width: calc(100vw - 287px) !important;
+  .main-section {
+    width: 100%;
+    max-width: 88vw !important;
+  }
+}
+
+@mixin fixed-right-styles {
+  display: block;
+  position: fixed;
+  width: 250px;
+  background-color: $dark;
+  padding: 0 20px;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  visibility: visible !important;
+  box-shadow: 10px 18px 18px 3px rgba(0, 0, 0, 0.1);
+  > * {
+    visibility: visible;
   }
 }
 
@@ -159,20 +176,12 @@ main {
   &.closed {
     .right {
       @include right-closed-styles;
+      @media (max-width: $big-tab) {
+        transition: 0.3s;
+        width: 0;
+      }
       @media (max-width: $tab) {
-        display: block;
-        position: fixed;
-        width: 250px;
-        background-color: $dark;
-        padding: 0 20px;
-        height: 100vh;
-        top: 0;
-        right: 0;
-        visibility: visible !important;
-        box-shadow: 10px 18px 18px 3px rgba(0, 0, 0, 0.1);
-        > * {
-          visibility: visible;
-        }
+        @include fixed-right-styles;
       }
     }
     .left {
@@ -205,14 +214,15 @@ main {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      max-width: 70vw;
       @media (max-width: $big-tab) {
         width: 80%;
         padding: 50px 40px;
       }
       @media (max-width: $tab) {
-        padding: 30px 40px;
-        width: 100%;
         padding: 50px 20px;
+        width: 100%;
+        max-width: unset !important;
       }
       .intro {
         height: 25%;
@@ -253,8 +263,8 @@ main {
         box-shadow: 2px 18px 18px 3px rgba(0, 0, 0, 0.1);
         padding: 45px 60px;
         box-sizing: border-box;
-        max-width: calc(75vw - 220px);
-        width: calc(75vw - 220px);
+        // max-width: calc(75vw - 220px);
+        // width: calc(75vw - 220px);
         overflow: hidden;
         overflow-x: scroll;
         scrollbar-width: none;
