@@ -40,8 +40,8 @@ export default class Bezier {
         return pts
     }
 
-    drawLine(points: Array<Point>, controlPoints: Array<Point>, iter = -1) {
-        requestAnimationFrame(() => this.drawLine(points, controlPoints, iter));
+    drawLine(points: Array<Point>, iter = -1) {
+        requestAnimationFrame(() => this.drawLine(points, iter));
         if (!this.graph.drag.isDragging && (this.selectedControlPointIndex !== null)) {
             this.selectedControlPointIndex = null
         }
@@ -55,11 +55,13 @@ export default class Bezier {
                     }
                 }
                 if (this.selectedControlPointIndex !== null) {
-                    controlPoints[this.selectedControlPointIndex].setX(Number(this.graph.drag.point.x.toFixed(2)));
-                    controlPoints[this.selectedControlPointIndex].setRawX(Number(this.graph.drag.point.rawX.toFixed(2)));
-                    controlPoints[this.selectedControlPointIndex].setY(Number(this.graph.drag.point.y.toFixed(2)));
-                    controlPoints[this.selectedControlPointIndex].setRawY(Number(this.graph.drag.point.rawY.toFixed(2)));
-                    this.generateCurve(controlPoints)
+                    const newState = [...this.controlPoints.state]
+                    newState[this.selectedControlPointIndex].setX(Number(this.graph.drag.point.x.toFixed(2)));
+                    newState[this.selectedControlPointIndex].setRawX(Number(this.graph.drag.point.rawX.toFixed(2)));
+                    newState[this.selectedControlPointIndex].setY(Number(this.graph.drag.point.y.toFixed(2)));
+                    newState[this.selectedControlPointIndex].setRawY(Number(this.graph.drag.point.rawY.toFixed(2)));
+                    this.controlPoints.setState(newState);
+                    this.generateCurve(this.controlPoints.state)
                 }
             })
         }
@@ -89,7 +91,7 @@ export default class Bezier {
         this.graph.clear();
         this.controlPoints = controlPoints;
         const points = this.getBezierPoints(controlPoints.state)
-        this.drawLine(points, controlPoints.state);
+        this.drawLine(points);
         this.indicatePoints();
     }
 
