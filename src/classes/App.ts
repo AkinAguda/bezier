@@ -23,7 +23,7 @@ export default class App {
         this.coordsContainer = document.getElementById('coords-container');
         this.graph = new Graph({ id: "myCanvas", points: this.points });
         this.hamburger = document.getElementById("hamburger") as HTMLButtonElement;
-        const defaultPoints = [this.graph.point(3, 4), this.graph.point(6, 6), this.graph.point(8, 2), this.graph.point(12, 5)]
+        const defaultPoints = this._getInitialCoords();
 
         this.points.setState(defaultPoints);
         this.points.subscribe(this.renderInputs.bind(this))
@@ -33,6 +33,11 @@ export default class App {
         this.bezier.buildBezier(this.points);
 
     }
+
+    private _getInitialCoords (): Point[] {
+        const coordConstants = [this.graph.point(3, 4), this.graph.point(6, 6), this.graph.point(8, 2), this.graph.point(12, 5)]
+        return coordConstants.map(point => this.graph.point(Math.floor((point.x / 751) * this.canvasContainer.clientWidth), Math.floor((point.y / 485) * this.canvasContainer.clientHeight)))
+    } 
 
     renderInputs() {
         while(this.coordsContainer.firstChild) {

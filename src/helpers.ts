@@ -35,5 +35,3 @@ export const makeid = (length: number) => {
     }
     return result;
 }
-
-// export const isObjectTypeGuard<T> = 
