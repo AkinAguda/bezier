@@ -13,6 +13,87 @@
 
         gtag('config', 'G-TZPN4WJ25F');
     </script>
+    <style>
+        @-webkit-keyframes rotation {
+            from {
+                -webkit-transform: rotate(0deg);
+                        transform: rotate(0deg);
+            }
+            to {
+                -webkit-transform: rotate(359deg);
+                        transform: rotate(359deg);
+            }
+        }
+
+        @keyframes rotation {
+            from {
+                -webkit-transform: rotate(0deg);
+                        transform: rotate(0deg);
+            }
+            to {
+                -webkit-transform: rotate(359deg);
+                        transform: rotate(359deg);
+            }
+        }
+        .fade-out {
+            opacity: 0;
+        }
+        .page-loader {
+            height: 100vh;
+            width: 100vw;
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #2e3035;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .page-loader .loader {
+            height: 100px;
+            width: 110px;
+            position: relative;
+            -webkit-animation: rotation 5s infinite linear;
+            animation: rotation 5s infinite linear;
+            -webkit-transition: 0.3s;
+            transition: 0.3s;
+        }
+
+        .page-loader .loader > :nth-child(1) {
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #c97322;
+        }
+
+        .page-loader .loader > :nth-child(2) {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-color: #772ec5;
+        }
+
+        .page-loader .loader > :nth-child(3) {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            background-color: #e1ec06;
+        }
+
+        .page-loader .loader > * {
+            height: 30px;
+            width: 30px;
+            border-radius: 100%;
+        }
+    </style>
 </head>
 <body>
     <button id='hamburger'>
@@ -20,6 +101,13 @@
         <div></div>
         <div></div>
     </button>
+    <div id="page-loader" class="page-loader">
+        <div class="loader">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
     <main id="main">
 
         <div class="left">
@@ -91,6 +179,16 @@
         </div>
 
     </main>
+    <script>
+        window.addEventListener('load', function() {
+            console.log("loaded")
+            var loader = document.getElementById("page-loader");
+            loader.classList.add('fade-out');
+            setTimeout(function() {
+                loader.style.display = "none";
+            }, 300)
+        })
+    </script>
     <script src="bundle.js"></script>
 </body>
 </html>

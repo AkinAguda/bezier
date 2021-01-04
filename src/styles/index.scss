@@ -27,6 +27,15 @@
   }
 }
 
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
 body {
   background-color: $dark;
 }
@@ -38,6 +47,48 @@ html {
   max-height: 100vh;
   height: 100vh;
   overflow: hidden;
+}
+
+.page-loader {
+  height: 100vh;
+  width: 100vw;
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: $dark;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .loader {
+    height: 100px;
+    width: 110px;
+    position: relative;
+    animation: rotation 5s infinite linear;
+    transition: 0.3s;
+    > :nth-child(1) {
+      margin-left: auto;
+      margin-right: auto;
+      background-color: rgb(201, 115, 34);
+    }
+    > :nth-child(2) {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background-color: rgb(119, 46, 197);
+    }
+    > :nth-child(3) {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      background-color: rgb(225, 236, 6);
+    }
+    > * {
+      height: 30px;
+      width: 30px;
+      border-radius: 100%;
+    }
+  }
 }
 
 #hamburger {
