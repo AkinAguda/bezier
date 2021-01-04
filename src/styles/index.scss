@@ -179,6 +179,12 @@ main {
         @media (max-width: $tab) {
           display: block;
           border-radius: $curved-border - 20px;
+          > :not(:nth-child(1)) {
+            margin-bottom: 30px;
+          }
+          > :last-child {
+            margin-bottom: 0;
+          }
         }
         > * {
           flex-grow: 1;
