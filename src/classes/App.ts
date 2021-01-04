@@ -23,7 +23,7 @@ export default class App {
         this.coordsContainer = document.getElementById('coords-container');
         this.graph = new Graph({ id: "myCanvas", points: this.points });
         this.hamburger = document.getElementById("hamburger") as HTMLButtonElement;
-        const defaultPoints = [this.graph.point(3, 4), this.graph.point(6, 6), this.graph.point(8, 2), this.graph.point(12, 5)]
+        const defaultPoints = [this.graph.point(3, 4), this.graph.point(4, 5), this.graph.point(8, 2), this.graph.point(12, 5)]
 
         this.points.setState(defaultPoints);
         this.points.subscribe(this.renderInputs.bind(this))
