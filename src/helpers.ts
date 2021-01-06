@@ -11,7 +11,7 @@ export const factorial = (num: number): number => {
 
 export const combination = (n: number, r: number) => factorial(n)/(factorial(n - r) * factorial(r));
 
-export const returnAxi = (pType: PointType, point: Point) => {
+export const returnAxis = (pType: PointType, point: Point) => {
     if (pType === PointType.x) {
         return point.x
     } else if (pType === PointType.y) {

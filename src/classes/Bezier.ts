@@ -2,7 +2,7 @@ import Graph from './Graph';
 import Point from './Point';
 import State from './State';
 
-import { combination, returnAxi, distBetweenPoints } from '../helpers';
+import { combination, returnAxis, distBetweenPoints } from '../helpers';
 
 export enum PointType {
     x,
@@ -25,9 +25,12 @@ export default class Bezier {
 
     summation(upperBoundary: number, lowerBoundary: number, iteration: number, points: Array<Point>, pType: PointType) : number {
         if (lowerBoundary === upperBoundary) {
-            return this.calculateValue(upperBoundary, lowerBoundary, iteration, returnAxi(pType, points[lowerBoundary]))
+            return this.calculateValue(upperBoundary, lowerBoundary, iteration, returnAxis(pType, points[lowerBoundary]))
         } else {
-            return this.calculateValue(upperBoundary, lowerBoundary, iteration, returnAxi(pType, points[lowerBoundary])) + this.summation(upperBoundary, lowerBoundary + 1, iteration, points, pType)
+            return (
+            this.calculateValue(upperBoundary, lowerBoundary, iteration, returnAxis(pType, points[lowerBoundary]))
+            + this.summation(upperBoundary, lowerBoundary + 1, iteration, points, pType)
+            )
         }
     }
 
