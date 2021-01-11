@@ -41,11 +41,11 @@ export default class State<T> {
         } else {
             this._state.prev = this._state.value;
             this._state.value = value;
-            this._state.subscriptions.forEach(({ handler }: { handler: handlerType<T>}) => handler({
-                value: this._state.value,
-                prev: this._state.prev,
-            }))
         }
+        this._state.subscriptions.forEach(({ handler }: { handler: handlerType<T>}) => handler({
+            value: this._state.value,
+            prev: this._state.prev,
+        }))
     }
     
     subscribe(handler: handlerType<T>) {
