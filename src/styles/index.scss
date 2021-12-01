@@ -126,7 +126,7 @@ html {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  @media (min-width: $tab + 1) {
+  @media (min-width: $tab) {
     display: none;
   }
   & > div {
@@ -144,13 +144,13 @@ main {
   display: flex;
   height: 100vh;
   width: 100vw;
-  .scroll-y {
-    overflow-y: auto;
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
+  // .scroll-y {
+  //   overflow-y: auto;
+  //   scrollbar-width: none;
+  //   &::-webkit-scrollbar {
+  //     display: none;
+  //   }
+  // }
   .center {
     text-align: center;
   }
@@ -162,7 +162,7 @@ main {
   }
   .paragraph {
     font-family: nunito-regular;
-    font-size: 13px;
+    font-size: 15px;
     @media (min-width: $big) {
       font-size: 17px;
     }
@@ -232,18 +232,22 @@ main {
       }
       .intro {
         height: 25%;
-        max-height: 25%;
-        overflow-y: scroll;
+        max-height: 300px;
+        // overflow-y: scroll;
         background-color: $dark-pink;
         border-radius: $curved-border;
+        gap: 30px;
         box-shadow: 7px 7px 18px 15px rgba(0, 0, 0, 0.1);
-        padding: 25px;
+        padding: 40px 60px;
+        overflow: hidden;
         font-family: sans-serif;
         color: white;
         box-sizing: border-box;
-        scrollbar-width: none;
+
         display: flex;
+        align-items: center;
         @media (max-width: $tab) {
+          overflow-y: scroll;
           display: block;
           border-radius: $curved-border - 20px;
           > :not(:nth-child(1)) {
@@ -252,15 +256,25 @@ main {
           > :last-child {
             margin-bottom: 0;
           }
+          > * {
+            height: fit-content !important;
+          }
         }
         > * {
           flex-grow: 1;
           flex-basis: 0;
-          padding: 0 15px;
+          // padding: 0 15px;
+          height: 100%;
+          overflow: hidden;
+          overflow-y: auto;
+
+          // &::-webkit-scrollbar {
+          //   display: none;
+          // }
         }
-        &::-webkit-scrollbar {
-          display: none;
-        }
+        // &::-webkit-scrollbar {
+        //   display: none;
+        // }
       }
       .canvas-container {
         height: 70%;
@@ -273,7 +287,7 @@ main {
         // width: calc(75vw - 220px);
         overflow: hidden;
         overflow-x: scroll;
-        scrollbar-width: none;
+
         @media (max-width: $tab) {
           max-width: 100% !important;
           width: 100% !important;
@@ -355,11 +369,12 @@ main {
     padding: 20px 20px 0 20px;
     box-sizing: border-box;
     transition: width 0s !important;
+    max-width: 400px;
     @media (max-width: $tab) {
       display: none;
     }
     .instruction {
-      height: 150px;
+      height: 200px;
       background-image: radial-gradient($blue, $purple);
       border-radius: $curved-border - 20px;
       margin: 50px 0 30px 0;
@@ -367,15 +382,25 @@ main {
       box-sizing: border-box;
       text-align: center;
       color: white;
+      overflow: hidden;
+      -ms-overflow-style: none;
+      display: flex;
+      align-items: center;
+
+      .inner {
+        height: fit-content;
+        max-height: 100%;
+        overflow-y: auto;
+        -ms-overflow-style: none;
+      }
     }
     .coords-container {
       overflow-y: auto;
       max-height: 500px;
       -ms-overflow-style: none;
-      scrollbar-width: none;
-      &::-webkit-scrollbar {
-        display: none;
-      }
+      // &::-webkit-scrollbar {
+      //   display: none;
+      // }
       & > * {
         margin-bottom: 30px;
       }
@@ -535,7 +560,25 @@ main {
 }
 
 .transition {
-  @media (min-width: $tab + 1) {
+  @media (min-width: $tab) {
     transition: 0.3s !important;
   }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  // box-shadow: inset 0 0 5px grey;
+
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(24, 44, 4, 0.4);
+  border-radius: 10px;
 }
